@@ -1,0 +1,17 @@
+{
+  "name": "spotify-gql-react",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "Daniel Beckwith",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.21.0"
+  },
+  "devDependencies": {
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  },
+  "scripts": {
+    "start": "yarn ts-node src/index.ts"
+  }
+}
