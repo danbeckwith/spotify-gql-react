@@ -1,4 +1,5 @@
 import { ApolloServer, gql } from 'apollo-server';
+import spotifyClient from './spotifyClient';
 
 console.log('Henk');
 
