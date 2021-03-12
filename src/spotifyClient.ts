@@ -9,9 +9,16 @@ const data = stringify({
   grant_type: 'client_credentials',
 });
 
-export default async () =>
-  axios.post(clientCredentialsEndpoint, data, {
-    headers: {
-      Authorization: `Basic ${getAuthString()}`,
+export default async () => {
+  const res = await axios.post(
+    clientCredentialsEndpoint,
+    data,
+    {
+      headers: {
+        Authorization: `Basic ${getAuthString()}`,
+      },
     },
-  });
+  );
+
+  return res.data.access_token;
+};
