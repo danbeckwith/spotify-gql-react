@@ -1,7 +1,9 @@
 import { ApolloServer, gql } from 'apollo-server';
-import spotifyClient from './spotifyClient';
+import getSpotifyToken from './spotifyClient';
 
-console.log('Henk');
+const token = getSpotifyToken();
+
+console.log(token);
 
 const typeDefs = gql`
   type Artist {
