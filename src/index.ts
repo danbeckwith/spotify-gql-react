@@ -2,39 +2,25 @@ import { ApolloServer } from 'apollo-server';
 import { typeDefs } from './typedefs';
 import SpotifyAPI from './datasources';
 
-const artists = [
-  {
-    name: 'Mental Cruelty',
-    genre: 'Slamming Deathcore',
-  },
-  {
-    name: '100 Gecs',
-    genre: 'Hyperpop',
-  },
-];
-
-const albums = [
-  {
-    name: '1000 Gecs',
-    label: 'Self-released',
-    artist: '100 Gecs',
-  },
-  {
-    name: 'Inferis',
-    label: 'Unique Leader Records',
-    artist: 'Mental Cruelty',
-  },
-];
-
+// TODO test how necessary async/await is here
 const resolvers = {
   Query: {
-    artists: () => artists,
     artist: async (_, { id }, { dataSources }) => {
       return await dataSources.spotifyAPI.getArtist(id);
     },
   },
   Artist: {
-    albums: (parent) => albums.filter((album) => album.artist === parent.name),
+    // TODO this will need pagination
+    albums: async (artist, __, { dataSources }) => {
+      const res = await dataSources.spotifyAPI.getAlbumsByArtistId(artist.id);
+      return res.items;
+    },
+  },
+  AlbumArtist: {
+    genres: async (album, __, { dataSources }) => {
+      // console.log(album);
+      return await dataSources.spotifyAPI.getArtist(album.id);
+    },
   },
 };
 

@@ -10,6 +10,12 @@ export const typeDefs = gql`
   type Album {
     name: String
     label: String
+    artists: [AlbumArtist]
+  }
+
+  type AlbumArtist {
+    name: String
+    genres: [String]
   }
 
   type Query {
