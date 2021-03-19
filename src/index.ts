@@ -1,23 +1,6 @@
-import { ApolloServer, gql } from 'apollo-server';
-
-console.log('Henk');
-
-const typeDefs = gql`
-  type Artist {
-    name: String
-    genre: String
-    albums: [Album]
-  }
-
-  type Album {
-    name: String
-    label: String
-  }
-
-  type Query {
-    artists: [Artist]
-  }
-`;
+import { ApolloServer } from 'apollo-server';
+import { typeDefs } from './typedefs';
+import SpotifyAPI from './datasources';
 
 const artists = [
   {
@@ -46,14 +29,25 @@ const albums = [
 const resolvers = {
   Query: {
     artists: () => artists,
+    artist: async (_, { id }, { dataSources }) => {
+      return await dataSources.spotifyAPI.getArtist(id);
+    },
   },
   Artist: {
     albums: (parent) => albums.filter((album) => album.artist === parent.name),
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  dataSources: () => {
+    return {
+      spotifyAPI: new SpotifyAPI(),
+    };
+  },
+});
 
 server.listen().then(({ url }) => {
-  console.log('HELLO Small BOY');
+  console.log('HELLO THERE');
 });
