@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 export const typeDefs = gql`
   type Artist {
     name: String
-    genre: String
+    genres: [String]
     albums: [Album]
   }
 
@@ -14,6 +14,6 @@ export const typeDefs = gql`
 
   type Query {
     artists: [Artist]
-    artist: String
+    artist(id: String!): Artist
   }
 `;

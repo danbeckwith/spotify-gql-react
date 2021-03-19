@@ -29,9 +29,8 @@ const albums = [
 const resolvers = {
   Query: {
     artists: () => artists,
-    artist: async (_, __, { dataSources }) => {
-      const res = await dataSources.spotifyAPI.getArtist();
-      return res.name;
+    artist: async (_, { id }, { dataSources }) => {
+      return await dataSources.spotifyAPI.getArtist(id);
     },
   },
   Artist: {

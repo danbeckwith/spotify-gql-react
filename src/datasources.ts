@@ -2,8 +2,6 @@ import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 import getSpotifyToken from './spotifyClient';
 
 class SpotifyAPI extends RESTDataSource {
-  token: string;
-
   constructor() {
     super();
     this.baseURL = 'https://api.spotify.com/v1';
@@ -14,8 +12,8 @@ class SpotifyAPI extends RESTDataSource {
     request.headers.set('Authorization', `Bearer ${token}`);
   };
 
-  getArtist = async () => {
-    return await this.get('/artists/0oSGxfWSnnOXhD2fKuz2Gy');
+  getArtist = async (id: number) => {
+    return await this.get(`/artists/${id}`);
   };
 }
 
