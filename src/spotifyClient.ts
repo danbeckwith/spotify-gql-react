@@ -9,7 +9,11 @@ const data = stringify({
   grant_type: 'client_credentials',
 });
 
+let token;
+
 export default async () => {
+  if (token) return token;
+
   const res = await axios.post(
     clientCredentialsEndpoint,
     data,
@@ -20,5 +24,6 @@ export default async () => {
     },
   );
 
+  token = res.data.access_token;
   return res.data.access_token;
 };

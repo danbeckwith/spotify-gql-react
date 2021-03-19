@@ -30,7 +30,8 @@ const resolvers = {
   Query: {
     artists: () => artists,
     artist: async (_, __, { dataSources }) => {
-      return dataSources.spotifyAPI.getArtist();
+      const res = await dataSources.spotifyAPI.getArtist();
+      return res.name;
     },
   },
   Artist: {
@@ -49,5 +50,5 @@ const server = new ApolloServer({
 });
 
 server.listen().then(({ url }) => {
-  console.log('HELLO Small BOY');
+  console.log('HELLO THERE');
 });
