@@ -11,7 +11,7 @@ const data = stringify({
 
 let token;
 
-export default async () => {
+export const getImplicitGrantToken = async () => {
   if (token) return token;
 
   const res = await axios.post(

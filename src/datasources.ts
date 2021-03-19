@@ -1,5 +1,5 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
-import getSpotifyToken from './spotifyClient';
+import { getImplicitGrantToken } from './spotifyAuthClient';
 
 class SpotifyAPI extends RESTDataSource {
   constructor() {
@@ -8,7 +8,7 @@ class SpotifyAPI extends RESTDataSource {
   }
 
   willSendRequest = async (request: RequestOptions) => {
-    const token = await getSpotifyToken();
+    const token = await getImplicitGrantToken();
     request.headers.set('Authorization', `Bearer ${token}`);
   };
 
