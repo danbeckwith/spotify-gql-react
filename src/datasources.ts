@@ -13,12 +13,12 @@ class SpotifyAPI extends RESTDataSource {
   };
 
   getArtist = async (id: string) => {
-    return await this.get(`/artists/${id}`);
+    return await this.get(`/artists/${id}`)
   };
 
   getAlbumsByArtistId = async (artistId: string) => {
-    return await this.get(`/artists/${artistId}/albums`);
-  }
+    return await this.get(`/artists/${artistId}/albums`) 
+  };
 }
 
 export default SpotifyAPI;
