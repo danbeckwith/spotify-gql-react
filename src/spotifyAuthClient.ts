@@ -11,6 +11,7 @@ const data = stringify({
 
 let token;
 
+// TODO add some unit testing
 export const getImplicitGrantToken = async () => {
   if (token) return token;
 
