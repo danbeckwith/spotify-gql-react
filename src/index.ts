@@ -17,9 +17,9 @@ const resolvers = {
     },
   },
   AlbumArtist: {
-    genres: async (album, __, { dataSources }) => {
-      // console.log(album);
-      return await dataSources.spotifyAPI.getArtist(album.id);
+    genres: async (artist, __, { dataSources }) => {
+      const res = await dataSources.spotifyAPI.getArtist(artist.id);
+      return res.genres;
     },
   },
 };
