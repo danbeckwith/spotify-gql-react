@@ -11,7 +11,7 @@ const data = stringify({
 let token;
 
 // TODO add some unit testing
-export const getImplicitGrantToken = async () => {
+export const getImplicitGrantToken = async (): Promise<string> => {
   if (token) return token;
 
   const res = await axios.post(clientCredentialsEndpoint, data, {
