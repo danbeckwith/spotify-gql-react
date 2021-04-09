@@ -4,7 +4,6 @@ import SpotifyAPI from './datasources';
 import { Resolvers } from './generated/graphql';
 
 // TODO test how necessary async/await is here
-// typescript isn't enforcing on gql stuff
 const resolvers: Resolvers = {
   Query: {
     artist: async (_, { id }, { dataSources }) => {
