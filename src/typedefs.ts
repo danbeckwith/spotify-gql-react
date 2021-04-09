@@ -2,6 +2,7 @@ import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
   type Artist {
+    id: String
     name: String
     genres: [String]
     albums: [Album]
@@ -15,6 +16,7 @@ export const typeDefs = gql`
   }
 
   type AlbumArtist {
+    id: String
     name: String
     genres: [String]
   }
