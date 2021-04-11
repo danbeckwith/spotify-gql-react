@@ -34,6 +34,6 @@ const server = new ApolloServer({
   },
 });
 
-server.listen().then(({ url }) => {
+server.listen().then(() => {
   console.log('HELLO THERE');
 });

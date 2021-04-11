@@ -1,14 +1,6 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 import { getImplicitGrantToken } from './spotifyAuthClient';
-
-// TODO extend these types
-interface Artist {
-  id: string;
-}
-
-interface Album {
-  id: string;
-}
+import { Album, Artist } from './generated/graphql';
 
 class SpotifyAPI extends RESTDataSource {
   constructor() {
