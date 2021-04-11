@@ -7,7 +7,7 @@ import { Resolvers } from './generated/graphql';
 const resolvers: Resolvers = {
   Query: {
     artist: async (_, { id }, { dataSources }) => {
-      return await dataSources.spotifyAPI.getArtist(id);
+      return dataSources.spotifyAPI.getArtist(id);
     },
   },
   Artist: {
@@ -15,8 +15,6 @@ const resolvers: Resolvers = {
       const res = await dataSources.spotifyAPI.getAlbumsByArtistId(artist.id);
       return res.items;
     },
-  },
-  AlbumArtist: {
     genres: async (artist, __, { dataSources }) => {
       const res = await dataSources.spotifyAPI.getArtist(artist.id);
       return res.genres;
@@ -32,6 +30,7 @@ const server = new ApolloServer({
       spotifyAPI: new SpotifyAPI(),
     };
   },
+  tracing: true,
 });
 
 server.listen().then(() => {
