@@ -17,6 +17,9 @@ const resolvers: Resolvers = {
       return res.genres;
     },
   },
+  Album: {
+    albumType: (album) => album.album_type,
+  },
 };
 
 const server = new ApolloServer({

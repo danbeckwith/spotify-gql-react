@@ -1,6 +1,12 @@
 import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
+  enum AlbumType {
+    album
+    single
+    compilation
+  }
+
   type Artist {
     id: String
     name: String
@@ -10,9 +16,10 @@ export const typeDefs = gql`
 
   type Album {
     name: String
-    label: String
     artists: [Artist]
     genres: [String]
+    albumType: AlbumType
+    album_type: AlbumType
   }
 
   type Query {
