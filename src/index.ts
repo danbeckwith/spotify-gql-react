@@ -3,24 +3,22 @@ import { typeDefs } from './typedefs';
 import SpotifyAPI from './datasources';
 import { Resolvers } from './generated/graphql';
 
-// TODO test how necessary async/await is here
 const resolvers: Resolvers = {
   Query: {
-    artist: async (_, { id }, { dataSources }) => {
-      return await dataSources.spotifyAPI.getArtist(id);
-    },
+    artist: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getArtist(id),
   },
   Artist: {
     albums: async (artist, __, { dataSources }) => {
       const res = await dataSources.spotifyAPI.getAlbumsByArtistId(artist.id);
       return res.items;
     },
-  },
-  AlbumArtist: {
     genres: async (artist, __, { dataSources }) => {
       const res = await dataSources.spotifyAPI.getArtist(artist.id);
       return res.genres;
     },
+  },
+  Album: {
+    albumType: (album) => album.album_type,
   },
 };
 
