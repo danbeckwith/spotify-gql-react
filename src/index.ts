@@ -33,7 +33,7 @@ const server = new ApolloServer({
   },
   schemaDirectives: {
     renameField,
-  }
+  },
 });
 
 server.listen().then(() => {
