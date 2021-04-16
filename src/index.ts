@@ -2,6 +2,7 @@ import { ApolloServer } from 'apollo-server';
 import { typeDefs } from './typedefs';
 import SpotifyAPI from './datasources';
 import { Resolvers } from './generated/graphql';
+import { renameField } from './directives/renameField';
 
 const resolvers: Resolvers = {
   Query: {
@@ -18,7 +19,7 @@ const resolvers: Resolvers = {
     },
   },
   Album: {
-    albumType: (album) => album.album_type,
+    albumType: (album) => album.albumType,
   },
 };
 
@@ -30,6 +31,9 @@ const server = new ApolloServer({
       spotifyAPI: new SpotifyAPI(),
     };
   },
+  schemaDirectives: {
+    renameField,
+  }
 });
 
 server.listen().then(() => {

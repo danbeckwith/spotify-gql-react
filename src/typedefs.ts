@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
+  directive @renameField(name: String!) on FIELD_DEFINITION
+
   enum AlbumType {
     album
     single
@@ -18,8 +20,7 @@ export const typeDefs = gql`
     name: String
     artists: [Artist]
     genres: [String]
-    albumType: AlbumType
-    album_type: AlbumType
+    albumType: AlbumType @renameField(name: "album_type")
   }
 
   type Query {
