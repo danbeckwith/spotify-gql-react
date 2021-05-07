@@ -14,6 +14,7 @@ export const typeDefs = gql`
     name: String
     genres: [String]
     albums: [Album]
+    popularity: Int
   }
 
   type Album {
@@ -25,5 +26,6 @@ export const typeDefs = gql`
 
   type Query {
     artist(id: String!): Artist
+    searchArtist(name: String!): [Artist]
   }
 `;
