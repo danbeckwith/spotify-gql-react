@@ -14,6 +14,7 @@ export const typeDefs = gql`
     name: String
     genres: [String]
     albums: [Album]
+    popularity: Int
   }
 
   type Album {
