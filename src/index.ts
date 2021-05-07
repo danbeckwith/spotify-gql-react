@@ -1,20 +1,19 @@
 import { ApolloServer } from 'apollo-server';
 import { typeDefs } from './typedefs';
-import SpotifyAPI from './datasources';
+import dataSources from './dataSources';
 import { Resolvers } from './generated/graphql';
 import { renameField } from './directives/renameField';
+import { ContextType } from './contextType';
 
-const resolvers: Resolvers = {
+const resolvers: Resolvers<ContextType> = {
   Query: {
-    artist: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getArtist(id),
+    artist: (_, { id }, { dataSources }) => dataSources.spotify.getArtistById(id),
+    searchArtist: (_, { name }, { dataSources }) => dataSources.spotify.searchArtistByName(name),
   },
   Artist: {
-    albums: async (artist, __, { dataSources }) => {
-      const res = await dataSources.spotifyAPI.getAlbumsByArtistId(artist.id);
-      return res.items;
-    },
+    albums: (artist, __, { dataSources }) => dataSources.spotify.getAlbumsByArtistId(artist.id),
     genres: async (artist, __, { dataSources }) => {
-      const res = await dataSources.spotifyAPI.getArtist(artist.id);
+      const res = await dataSources.spotify.getArtistById(artist.id);
       return res.genres;
     },
   },
@@ -23,11 +22,7 @@ const resolvers: Resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  dataSources: () => {
-    return {
-      spotifyAPI: new SpotifyAPI(),
-    };
-  },
+  dataSources,
   schemaDirectives: {
     renameField,
   },

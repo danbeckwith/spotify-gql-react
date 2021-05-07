@@ -13,13 +13,22 @@ class SpotifyAPI extends RESTDataSource {
     request.headers.set('Authorization', `Bearer ${token}`);
   };
 
-  getArtist = async (id: string): Promise<Artist> => {
+  getArtistById = async (id: string): Promise<Artist> => {
     return this.get(`/artists/${id}`);
   };
 
   getAlbumsByArtistId = async (artistId: string): Promise<Album[]> => {
-    return this.get(`/artists/${artistId}/albums`);
+    const res = await this.get(`/artists/${artistId}/albums`);
+    return res.items;
+  };
+
+  searchArtistByName = async (name: string): Promise<Artist[]> => {
+    const res = await this.get(`/search/?query=${name}&type=artist`);
+    return res.artists.items;
   };
 }
 
-export default SpotifyAPI;
+export default (): { spotify: SpotifyAPI } => ({
+  spotify: new SpotifyAPI(),
+});
+

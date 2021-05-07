@@ -25,5 +25,6 @@ export const typeDefs = gql`
 
   type Query {
     artist(id: String!): Artist
+    searchArtist(name: String!): [Artist]
   }
 `;
