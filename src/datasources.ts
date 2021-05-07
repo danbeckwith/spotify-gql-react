@@ -1,11 +1,12 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 import { getImplicitGrantToken } from './spotifyAuthClient';
 import { Album, Artist } from './generated/graphql';
+import { apiEndpoint } from './config';
 
 class SpotifyAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'https://api.spotify.com/v1';
+    this.baseURL = apiEndpoint;
   }
 
   willSendRequest = async (request: RequestOptions): Promise<void> => {
@@ -31,4 +32,3 @@ class SpotifyAPI extends RESTDataSource {
 export default (): { spotify: SpotifyAPI } => ({
   spotify: new SpotifyAPI(),
 });
-
